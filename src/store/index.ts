@@ -23,17 +23,19 @@ const defaultState: {
 
 const store = makeObservable({
   ...defaultState,
-  set(prop: string, value: any) {
-    const newList = this.allItems;
-    newList.push(value);
-    this.allItems = newList;
+  setNewItem(value: string) {
+    if (!this.allItems.includes(value)) {
+      this.allItems = [...this.allItems, value];
+    } else {
+      console.log('This element already exists')
+    }
   },
 },
   {
     lists: observable,
     list: observable,
     allItems: observable,
-    set: action,
+    setNewItem: action,
 
   },
   { autoBind: true }
