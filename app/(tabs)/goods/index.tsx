@@ -1,9 +1,10 @@
-import { StyleSheet, View, Text, Modal, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Stack } from "expo-router";
 import store from '../../../src/store/index'
-import { Button, Chip, IconButton, Portal, TextInput } from 'react-native-paper';
+import { Chip, IconButton } from 'react-native-paper';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import AddGoodsModal from '../../../components/AddGoodsModal/AddGoodsModal';
 
 const GoodsView = observer(() => {
   const [text, setText] = useState('');
@@ -11,12 +12,12 @@ const GoodsView = observer(() => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = { backgroundColor: 'white', padding: 20, alignSelf: "center" };
 
   const addNewItem = () => {
     if (text) {
       store.setNewItem(text);
     } else console.log('no text');
+
     hideModal();
   }
   return (
@@ -32,34 +33,14 @@ const GoodsView = observer(() => {
           ),
         }}
       />
-      <Portal>
-        <Modal visible={visible} onDismiss={hideModal} transparent={true} >
-          <TouchableWithoutFeedback onPress={() => hideModal()}>
-            <View style={styles.modalStyle}>
-              <TouchableWithoutFeedback>
-                <View style={styles.modalInner}>
-                  <TextInput
-                    mode="outlined"
-                    label="Add item"
-                    style={{width: '80%'}}
-                    onChangeText={newText => setText(newText)}
-                  />
-                  <Button
-                    onPress={addNewItem}
-                    mode="contained"
-                    style={{width: '60%'}}
-                    >
-                    Add Item
-                  </Button>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
-      </Portal>
+      <AddGoodsModal visible={visible}
+        hideModal={hideModal}
+        setText={setText}
+        addNewItem={addNewItem}
+      />
       <View style={styles.chipsStyles}>
         {
-          store.allItems.map((item, id) => (<View style={styles.chipStyles}><Chip key={id}>{item}</Chip></View>))
+          store.allItems.map((item, id) => (<View key={id} style={styles.chipStyles}><Chip>{item}</Chip></View>))
         }
       </View>
     </View>
@@ -80,30 +61,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: '100%',
     margin: 10
-  },
-  modalStyle: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  modalInner: {
-    height: 220,
-    width: '100%',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 35,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#FFF',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 10,
   },
   chipsStyles: {
     flex: 1,

@@ -11,7 +11,7 @@ export default function TabsLayout() {
           title: "List",
           tabBarIcon: () => <MaterialCommunityIcons name="format-list-bulleted" size={30} />,
           tabBarLabelStyle: {
-            fontSize: 15,
+            fontSize: 12,
           },
         }}
       />
@@ -22,7 +22,7 @@ export default function TabsLayout() {
           title: "Goods",
           tabBarIcon: () => <MaterialCommunityIcons name="rhombus-split" size={30} />,
           tabBarLabelStyle: {
-            fontSize: 15,
+            fontSize: 12,
           },
         }}
       />
