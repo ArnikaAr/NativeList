@@ -45,13 +45,13 @@ const store = makeObservable({
   { autoBind: true }
 );
 
-// makePersistable(
-//   store,
-//   {
-//     storage: AsyncStorage,
-//     name: 'ListStore',
-//     properties: ['lists', 'list', 'allItems',]
-//   }
-// )
+makePersistable(
+  store,
+  {
+    storage: AsyncStorage,
+    name: 'ListStore',
+    properties: ['lists', 'list', 'allItems',]
+  }
+)
 
 export default store;

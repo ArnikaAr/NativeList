@@ -29,7 +29,7 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
               initialValues={{ item: '' }}
               onSubmit={value => addNewItem(value.item)}
             >
-              {({ handleSubmit, values }) => (
+              {({ handleChange, handleBlur, handleSubmit, values }) => (
                 <View style={styles.modalInner}>
                   <View style={styles.modalHeaderStyles}>
                     <Text>Add new item to list: </Text>
@@ -46,6 +46,8 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
                     label="Add item"
                     style={{ width: '90%' }}
                     value={values.item}
+                    onChangeText={handleChange('item')}
+                    onBlur={handleBlur('item')}
                   />
                   <Button
                     mode="contained"
