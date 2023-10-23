@@ -30,12 +30,16 @@ const store = makeObservable({
       console.log('This element already exists')
     }
   },
+  removeListItem(value: string){
+    this.allItems = this.allItems.filter(item => item !== value)
+  }
 },
   {
     lists: observable,
     list: observable,
     allItems: observable,
     setNewItem: action,
+    removeListItem: action
 
   },
   { autoBind: true }
@@ -46,7 +50,7 @@ const store = makeObservable({
 //   {
 //     storage: AsyncStorage,
 //     name: 'ListStore',
-//     properties: ['lists', 'list', 'items',]
+//     properties: ['lists', 'list', 'allItems',]
 //   }
 // )
 

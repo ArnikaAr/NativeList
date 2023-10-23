@@ -1,25 +1,21 @@
 import { StyleSheet, View } from 'react-native';
 import { Stack } from "expo-router";
 import store from '../../../src/store/index'
-import { Chip, IconButton } from 'react-native-paper';
+import { Chip, IconButton, Text } from 'react-native-paper';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import AddGoodsModal from '../../../components/AddGoodsModal/AddGoodsModal';
+import AddGoodsModal from '../../../components/modals/AddGoodsModal/AddGoodsModal';
 
 const GoodsView = observer(() => {
-  const [text, setText] = useState('');
   const [visible, setVisible] = useState(false);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
-  const addNewItem = () => {
-    if (text) {
-      store.setNewItem(text);
-    } else console.log('no text');
-
-    hideModal();
+  const removeItem = (item: string): void => {
+    store.removeListItem(item)
   }
+
   return (
     <View style={styles.container}>
       <Stack.Screen
@@ -33,16 +29,22 @@ const GoodsView = observer(() => {
           ),
         }}
       />
-      <AddGoodsModal visible={visible}
+      <AddGoodsModal
+        visible={visible}
         hideModal={hideModal}
-        setText={setText}
-        addNewItem={addNewItem}
       />
-      <View style={styles.chipsStyles}>
-        {
-          store.allItems.map((item, id) => (<View key={id} style={styles.chipStyles}><Chip>{item}</Chip></View>))
-        }
-      </View>
+      {store.allItems.length ?
+        <View style={styles.chipsStyles}>
+          {
+            store.allItems.map((item, id) => (
+              <View key={id} style={styles.chipStyles}>
+                <Chip closeIcon="close" onClose={() => removeItem(item)}>{item}</Chip>
+              </View>))
+          }
+        </View> :
+        <View style={styles.emptyTextStyles}>
+          <Text>The list of products is still empty </Text>
+        </View>}
     </View>
   );
 });
@@ -73,6 +75,11 @@ const styles = StyleSheet.create({
   },
   chipStyles: {
     margin: 5
+  },
+  emptyTextStyles: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 export default GoodsView;
