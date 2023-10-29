@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { StyleSheet, View, Modal, TouchableWithoutFeedback, Text } from 'react-native';
-import { TextInput, Button, IconButton } from 'react-native-paper';
-import { Formik } from 'formik';
+import { TextInput, IconButton, Button } from 'react-native-paper';
+import { useFormik } from 'formik';
 
+import { itemFormSchema } from '../schemas/index';
 import store from '../../../src/store/index';
 
 export interface IAddGoodsModal {
@@ -20,46 +21,54 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
 
     hideModal();
   }
+  const { values, errors, handleChange, handleBlur, handleSubmit } = useFormik({
+    initialValues: {
+      item: ''
+    },
+    validationSchema: itemFormSchema,
+    onSubmit: (values: { item: string }) => {
+      console.log(errors)
+      addNewItem(values.item);
+    },
+
+  });
   return (
     <Modal visible={visible} onDismiss={hideModal} transparent={true} >
       <TouchableWithoutFeedback onPress={() => hideModal()}>
         <View style={styles.modalStyle}>
           <TouchableWithoutFeedback>
-            <Formik
-              initialValues={{ item: '' }}
-              onSubmit={value => addNewItem(value.item)}
-            >
-              {({ handleChange, handleBlur, handleSubmit, values }) => (
-                <View style={styles.modalInner}>
-                  <View style={styles.modalHeaderStyles}>
-                    <Text>Add new item to list: </Text>
-                    <IconButton
-                      icon="close"
-                      size={20}
-                      mode='contained'
-                      onPress={() => hideModal()}
-                      style={styles.closeRightStyles}
-                    />
-                  </View>
-                  <TextInput
-                    mode="outlined"
-                    label="Add item"
-                    style={{ width: '90%' }}
-                    value={values.item}
-                    onChangeText={handleChange('item')}
-                    onBlur={handleBlur('item')}
-                  />
-                  <Button
-                    mode="contained"
-                    style={{ width: '60%' }}
-                    onPress={() => handleSubmit()}
-                  >
-                    Add Item
-                  </Button>
-                </View>
-              )
+            <View style={styles.modalInner}>
+              <View style={styles.modalHeaderStyles}>
+                <Text>Add new item to list: </Text>
+                <IconButton
+                  icon="close"
+                  size={20}
+                  mode='contained'
+                  onPress={() => hideModal()}
+                />
+              </View>
+              <TextInput
+                mode="outlined"
+                label="Add item"
+                style={{ width: '90%' }}
+                value={values.item}
+                onChangeText={handleChange('item')}
+                onBlur={handleBlur('item')}
+              />
+              {
+                errors ?
+                  <View>
+                    <Text style={styles.error}>{errors.item}</Text>
+                  </View> : null
               }
-            </Formik>
+              <Button
+                style={{ width: '60%' }}
+                mode="contained"
+                onPress={handleSubmit}
+              >
+                <Text>Add Item</Text>
+              </Button>
+            </View>
           </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>
@@ -99,5 +108,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%'
+  },
+  error: {
+    color: 'red'
   }
 });
