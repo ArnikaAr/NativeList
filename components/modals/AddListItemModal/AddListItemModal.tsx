@@ -1,65 +1,96 @@
 import React, { FC } from 'react';
 import { StyleSheet, View, Modal, TouchableWithoutFeedback, Text } from 'react-native';
-import { TextInput, Button, IconButton } from 'react-native-paper';
-import { Formik } from 'formik';
+import { TextInput, IconButton, Button } from 'react-native-paper';
+import { useFormik } from 'formik';
 
+import { listFormSchema } from '../schemas/index';
 import store from '../../../src/store/index';
+import { List } from '../../../src/models';
 
-export interface IAddListItemModel {
+export interface IAddGoodsModal {
   visible: boolean,
   hideModal: any
 }
 
-const AddListItemModel: FC<IAddListItemModel> = ({
+export interface IAddGoodsModalModel {
+  listName: string,
+  listDetails: string
+}
+
+const AddGoodsModal: FC<IAddGoodsModal> = ({
   visible, hideModal,
 }) => {
-  const addNewItem = (value: string): void => {
-    if (value) {
-      store.setNewItem(value);
-    } else console.log('no text');
-
+  const addNewList = (value: IAddGoodsModalModel): void => {
+    const listIem = {
+      ...value, 
+      id: '1',
+      items: [],
+    }
+    store.setNewList(listIem as List);
     hideModal();
   }
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik<IAddGoodsModalModel>({
+    initialValues: {
+      listName: '',
+      listDetails: ''
+    },
+    validationSchema: listFormSchema,
+    onSubmit: (values: IAddGoodsModalModel) => {
+      addNewList(values);
+    },
+
+  });
   return (
     <Modal visible={visible} onDismiss={hideModal} transparent={true} >
       <TouchableWithoutFeedback onPress={() => hideModal()}>
         <View style={styles.modalStyle}>
           <TouchableWithoutFeedback>
-            <Formik
-              initialValues={{ item: '' }}
-              onSubmit={value => addNewItem(value.item)}
-            >
-              {({ handleChange, handleBlur, handleSubmit, values }) => (
-                <View style={styles.modalInner}>
-                  <View style={styles.modalHeaderStyles}>
-                    <Text>Add new item to list: </Text>
-                    <IconButton
-                      icon="close"
-                      size={20}
-                      mode='contained'
-                      onPress={() => hideModal()}
-                      style={styles.closeRightStyles}
-                    />
-                  </View>
-                  <TextInput
-                    mode="outlined"
-                    label="Add item"
-                    style={{ width: '90%' }}
-                    value={values.item}
-                    onChangeText={handleChange('item')}
-                    onBlur={handleBlur('item')}
-                  />
-                  <Button
-                    mode="contained"
-                    style={{ width: '60%' }}
-                    onPress={() => handleSubmit()}
-                  >
-                    Add Item
-                  </Button>
-                </View>
-              )
+            <View style={styles.modalInner}>
+              <View style={styles.modalHeaderStyles}>
+                <Text>Add new list to list: </Text>
+                <IconButton
+                  icon="close"
+                  size={20}
+                  mode='contained'
+                  onPress={() => hideModal()}
+                />
+              </View>
+              <TextInput
+                mode="outlined"
+                label="Add List Name"
+                style={styles.fullWidth}
+                value={values.listName}
+                onChangeText={handleChange('listName')}
+                onBlur={handleBlur('listName')}
+              />
+              {
+                errors.listName && touched.listName ?
+                  <View>
+                    <Text style={styles.error}>{errors.listName}</Text>
+                  </View> : null
               }
-            </Formik>
+              <TextInput
+                mode="outlined"
+                label="Add List Details"
+                style={styles.fullWidth}
+                value={values.listDetails}
+                onChangeText={handleChange('listDetails')}
+                onBlur={handleBlur('listDetails')}
+              />
+              {
+                errors.listDetails && touched.listDetails ?
+                  <View>
+                    <Text style={styles.error}>{errors.listDetails}</Text>
+                  </View> : null
+              }
+              <Button
+                style={styles.fullWidth}
+                mode="contained"
+                onPress={handleSubmit}
+              >
+                <Text>Add Item</Text>
+              </Button>
+            </View>
           </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>
@@ -67,7 +98,7 @@ const AddListItemModel: FC<IAddListItemModel> = ({
   );
 };
 
-export default AddListItemModel;
+export default AddGoodsModal;
 const styles = StyleSheet.create({
   modalStyle: {
     flex: 1,
@@ -76,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalInner: {
-    height: 250,
+    height: 300,
     width: '100%',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -98,6 +129,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    width: '100%'
+  },
+  error: {
+    color: 'red',
+    paddingTop: 10,
+    paddingBottom: 5
+  },
+  fullWidth: {
     width: '100%'
   }
 });

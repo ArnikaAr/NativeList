@@ -15,13 +15,10 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
   visible, hideModal,
 }) => {
   const addNewItem = (value: string): void => {
-    if (value) {
-      store.setNewItem(value);
-    } else console.log('no text');
-
+    store.setNewItem(value);
     hideModal();
   }
-  const { values, errors, handleChange, handleBlur, handleSubmit } = useFormik({
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
       item: ''
     },
@@ -50,19 +47,19 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
               <TextInput
                 mode="outlined"
                 label="Add item"
-                style={{ width: '90%' }}
+                style={styles.fullWidth}
                 value={values.item}
                 onChangeText={handleChange('item')}
                 onBlur={handleBlur('item')}
               />
               {
-                errors ?
+                errors.item && touched.item?
                   <View>
                     <Text style={styles.error}>{errors.item}</Text>
                   </View> : null
               }
               <Button
-                style={{ width: '60%' }}
+                style={styles.fullWidth}
                 mode="contained"
                 onPress={handleSubmit}
               >
@@ -111,5 +108,8 @@ const styles = StyleSheet.create({
   },
   error: {
     color: 'red'
+  },
+  fullWidth: {
+    width: '100%'
   }
 });

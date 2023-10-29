@@ -8,15 +8,8 @@ import { List } from '../models';
 
 const defaultState: {
   lists: List[],
-  list: List,
   allItems: string[]
 } = {
-  list: {
-    id: '',
-    name: '',
-    description: '',
-    items: []
-  },
   lists: [],
   allItems: []
 }
@@ -30,13 +23,15 @@ const store = makeObservable({
       console.log('This element already exists')
     }
   },
-  removeListItem(value: string){
+  setNewList(value: List) {
+    this.lists = [...this.lists, value];
+  },
+  removeListItem(value: string) {
     this.allItems = this.allItems.filter(item => item !== value)
   }
 },
   {
     lists: observable,
-    list: observable,
     allItems: observable,
     setNewItem: action,
     removeListItem: action

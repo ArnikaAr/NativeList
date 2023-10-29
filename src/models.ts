@@ -1,6 +1,6 @@
 export type List =  {
     id: string;
-    name: string;
-    description: string;
+    listName: string;
+    listDetails: string;
     items: string[];
 }

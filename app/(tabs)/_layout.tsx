@@ -9,7 +9,7 @@ export default function TabsLayout() {
         options={{
           tabBarLabel: "List",
           title: "List",
-          tabBarIcon: () => <MaterialCommunityIcons name="format-list-bulleted" size={30} />,
+          tabBarIcon: () => <MaterialCommunityIcons name="format-list-bulleted" size={30} color={'#402e69'} />,
           tabBarLabelStyle: {
             fontSize: 12,
           },
@@ -20,7 +20,7 @@ export default function TabsLayout() {
         options={{
           tabBarLabel: "Goods",
           title: "Goods",
-          tabBarIcon: () => <MaterialCommunityIcons name="rhombus-split" size={30} />,
+          tabBarIcon: () => <MaterialCommunityIcons name="rhombus-split" size={30} color={'#402e69'}/>,
           tabBarLabelStyle: {
             fontSize: 12,
           },
