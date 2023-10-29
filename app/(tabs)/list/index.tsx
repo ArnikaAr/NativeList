@@ -4,8 +4,11 @@ import { Stack } from "expo-router";
 import React, { useState } from 'react';
 import AddListItemModel from '../../../components/modals/AddListItemModal/AddListItemModal';
 import store from '../../../src/store/index'
+import { useTranslation } from 'react-i18next';
 
 export default function ListView() {
+  const { t } = useTranslation();
+
   const [visible, setVisible] = useState(false);
 
   const showModal = () => setVisible(true);
@@ -13,7 +16,7 @@ export default function ListView() {
   return (
     <View style={styles.container}>
       <Stack.Screen options={{
-        headerShown: true, title: "List", headerRight: () => (
+        headerShown: true, title: t("List"), headerRight: () => (
           <IconButton
             icon="plus"
             size={20}

@@ -5,8 +5,11 @@ import { Chip, IconButton, Text } from 'react-native-paper';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import AddGoodsModal from '../../../components/modals/AddGoodsModal/AddGoodsModal';
+import { useTranslation } from 'react-i18next';
 
 const GoodsView = observer(() => {
+  const { t } = useTranslation();
+
   const [visible, setVisible] = useState(false);
 
   const showModal = () => setVisible(true);
@@ -20,7 +23,7 @@ const GoodsView = observer(() => {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          headerShown: true, title: "Goods", headerRight: () => (
+          headerShown: true, title: t("Goods"), headerRight: () => (
             <IconButton
               icon="plus"
               size={20}
