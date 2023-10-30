@@ -26,7 +26,7 @@ const store = makeObservable({
   setNewList(value: List) {
     this.lists = [...this.lists, value];
   },
-  removeListItem(value: string) {
+  removeItem(value: Item) {
     this.allItems = this.allItems.filter(item => item.id !== value)
   }
 },
@@ -34,7 +34,7 @@ const store = makeObservable({
     lists: observable,
     allItems: observable,
     setNewItem: action,
-    removeListItem: action
+    removeItem: action
 
   },
   { autoBind: true }

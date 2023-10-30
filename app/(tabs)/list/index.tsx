@@ -39,7 +39,7 @@ export default function ListView() {
           }
         </View> :
         <View style={styles.emptyTextStyles}>
-          <Text>The list of products is still empty </Text>
+          <Text>{t('EmptyProductsList')}</Text>
         </View>}
       <AddListItemModel visible={visible}
         hideModal={hideModal}></AddListItemModel>

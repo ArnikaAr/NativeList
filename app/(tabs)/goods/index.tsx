@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import AddGoodsModal from '../../../components/modals/AddGoodsModal/AddGoodsModal';
 import { useTranslation } from 'react-i18next';
+import { Item } from '../../../src/models';
 
 const GoodsView = observer(() => {
   const { t } = useTranslation();
@@ -15,8 +16,8 @@ const GoodsView = observer(() => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
-  const removeItem = (item: string): void => {
-    store.removeListItem(item)
+  const removeItem = (item: Item): void => {
+    store.removeItem(item)
   }
 
   return (
@@ -46,7 +47,7 @@ const GoodsView = observer(() => {
           }
         </View> :
         <View style={styles.emptyTextStyles}>
-          <Text>The list of products is still empty </Text>
+          <Text>{t('EmptyGoodsList')}</Text>
         </View>}
     </View>
   );
