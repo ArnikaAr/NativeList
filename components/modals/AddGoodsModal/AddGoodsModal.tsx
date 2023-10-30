@@ -2,9 +2,11 @@ import React, { FC } from 'react';
 import { StyleSheet, View, Modal, TouchableWithoutFeedback, Text } from 'react-native';
 import { TextInput, IconButton, Button } from 'react-native-paper';
 import { useFormik } from 'formik';
+import uuid from 'react-native-uuid';
 
 import { itemFormSchema } from '../schemas/index';
 import store from '../../../src/store/index';
+import { Item } from '../../../src/models';
 
 export interface IAddGoodsModal {
   visible: boolean,
@@ -15,7 +17,11 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
   visible, hideModal,
 }) => {
   const addNewItem = (value: string): void => {
-    store.setNewItem(value);
+    const newItem = {
+      name: value,
+      id: uuid.v4()
+    }
+    store.setNewItem(newItem as Item);
     hideModal();
   }
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({

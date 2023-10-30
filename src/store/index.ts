@@ -4,11 +4,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-import { List } from '../models';
+import { Item, List } from '../models';
 
 const defaultState: {
   lists: List[],
-  allItems: string[]
+  allItems: Item[]
 } = {
   lists: [],
   allItems: []
@@ -16,7 +16,7 @@ const defaultState: {
 
 const store = makeObservable({
   ...defaultState,
-  setNewItem(value: string) {
+  setNewItem(value: Item) {
     if (!this.allItems.includes(value)) {
       this.allItems = [...this.allItems, value];
     } else {
@@ -27,7 +27,7 @@ const store = makeObservable({
     this.lists = [...this.lists, value];
   },
   removeListItem(value: string) {
-    this.allItems = this.allItems.filter(item => item !== value)
+    this.allItems = this.allItems.filter(item => item.id !== value)
   }
 },
   {

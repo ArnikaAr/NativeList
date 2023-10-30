@@ -5,6 +5,6 @@ export const itemFormSchema = yup.object().shape({
 });
 export const listFormSchema = yup.object().shape({
     listName: yup.string().required('List name is required'),
-    listDetails: yup.string().min(5, 'Must be exactly 5 signs')
+    listDetails: yup.string().min(5, 'Must be more then  5 signs')
 
 });

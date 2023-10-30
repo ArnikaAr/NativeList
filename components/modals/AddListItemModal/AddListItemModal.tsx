@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { StyleSheet, View, Modal, TouchableWithoutFeedback, Text } from 'react-native';
 import { TextInput, IconButton, Button } from 'react-native-paper';
 import { useFormik } from 'formik';
+import uuid from 'react-native-uuid';
 
 import { listFormSchema } from '../schemas/index';
 import store from '../../../src/store/index';
@@ -23,7 +24,7 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
   const addNewList = (value: IAddGoodsModalModel): void => {
     const listIem = {
       ...value, 
-      id: '1',
+      id: uuid.v4(), 
       items: [],
     }
     store.setNewList(listIem as List);

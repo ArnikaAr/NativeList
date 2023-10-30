@@ -39,9 +39,9 @@ const GoodsView = observer(() => {
       {store.allItems.length ?
         <View style={styles.chipsStyles}>
           {
-            store.allItems.map((item, id) => (
-              <View key={id} style={styles.chipStyles}>
-                <Chip closeIcon="close" onClose={() => removeItem(item)}>{item}</Chip>
+            store.allItems.map((item) => (
+              <View key={item.id} style={styles.chipStyles}>
+                <Chip closeIcon="close" onClose={() => removeItem(item.id)}>{item.name}</Chip>
               </View>))
           }
         </View> :
