@@ -2,7 +2,7 @@ export type List =  {
     id: string;
     listName: string;
     listDetails: string;
-    items: string[];
+    items: Item[] | undefined;
 }
 
 export type Item = {

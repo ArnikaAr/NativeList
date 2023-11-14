@@ -1,40 +1,28 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { StyleSheet, View, Modal, TouchableWithoutFeedback, Text } from 'react-native';
-import { TextInput, IconButton, Button } from 'react-native-paper';
-import { useFormik } from 'formik';
-import uuid from 'react-native-uuid';
+import { IconButton, Button } from 'react-native-paper';
 
-import { itemFormSchema } from '../schemas/index';
-import store from '../../../src/store/index';
-import { Item } from '../../../src/models';
-import { observer } from 'mobx-react-lite';
 
-export interface IAddGoodsModal {
+export interface IDeleteModal {
   visible: boolean,
-  hideModal: any
+  hideModal: any,
+  modalHandler: any,
 }
 
-const AddGoodsModal: FC<IAddGoodsModal> = ({
-  visible, hideModal,
+const DeleteModal: FC<IDeleteModal> = ({
+  visible, hideModal, modalHandler
 }) => {
-  const addNewItem = (value: string): void => {
-    const newItem = {
-      name: value,
-      id: uuid.v4()
-    }
-    store.setNewItem(newItem as Item);
-    hideModal();
-  }
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      item: ''
-    },
-    validationSchema: itemFormSchema,
-    onSubmit: (values: { item: string }) => {
-      addNewItem(values.item);
-    },
+ 
 
-  });
+  const handleSubmit = useCallback(
+    () => {
+      modalHandler();
+      hideModal()
+    },
+    [],
+  );
+
+
   return (
     <Modal visible={visible} onDismiss={hideModal} transparent={true} >
       <TouchableWithoutFeedback onPress={() => hideModal()}>
@@ -42,7 +30,7 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
           <TouchableWithoutFeedback>
             <View style={styles.modalInner}>
               <View style={styles.modalHeaderStyles}>
-                <Text>Add new item to list: </Text>
+                <Text>Are you sure you want to delete the item ?</Text>
                 <IconButton
                   icon="close"
                   size={20}
@@ -50,26 +38,13 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
                   onPress={() => hideModal()}
                 />
               </View>
-              <TextInput
-                mode="outlined"
-                label="Add item"
-                style={styles.fullWidth}
-                value={values.item}
-                onChangeText={handleChange('item')}
-                onBlur={handleBlur('item')}
-              />
-              {
-                errors.item && touched.item?
-                  <View>
-                    <Text style={styles.error}>{errors.item}</Text>
-                  </View> : null
-              }
+          
               <Button
                 style={styles.fullWidth}
                 mode="contained"
-                onPress={handleSubmit}
+                 onPress={handleSubmit}
               >
-                <Text>Add Item</Text>
+                <Text>Delete</Text>
               </Button>
             </View>
           </TouchableWithoutFeedback>
@@ -79,7 +54,7 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
   );
 };
 
-export default observer(AddGoodsModal);
+export default DeleteModal;
 const styles = StyleSheet.create({
   modalStyle: {
     flex: 1,
@@ -88,7 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalInner: {
-    height: 250,
+    height: 150,
     width: '100%',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

@@ -8,10 +8,10 @@ import { Item, List } from '../models';
 
 const defaultState: {
   lists: List[],
-  allItems: Item[]
+  allItems: Item[],
 } = {
   lists: [],
-  allItems: []
+  allItems: [],
 }
 
 const store = makeObservable({
@@ -27,15 +27,27 @@ const store = makeObservable({
     this.lists = [...this.lists, value];
   },
   removeItem(value: Item) {
-    this.allItems = this.allItems.filter(item => item.id !== value)
+    this.allItems = this.allItems.filter(item => item.id !== value.id);
+  },
+  removeListItem(value: List) {
+    this.lists = this.lists.filter(item => item.id !== value.id);
+  },
+  changeList(newValue: any) {
+    this.lists = this.lists.map(item => item.id === newValue.id ? newValue: item);
+  },
+  addItemsToList(value: Item[] | undefined, id: string | undefined){
+ 
   }
 },
   {
     lists: observable,
     allItems: observable,
     setNewItem: action,
-    removeItem: action
-
+    removeItem: action,
+    setNewList: action,
+    removeListItem: action,
+    changeList: action,
+    addItemsToList: action,
   },
   { autoBind: true }
 );
@@ -45,7 +57,7 @@ makePersistable(
   {
     storage: AsyncStorage,
     name: 'ListStore',
-    properties: ['lists', 'list', 'allItems',]
+    properties: ['lists', 'allItems', 'lang']
   }
 )
 

@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import AddListItemModel from '../../../components/modals/AddListItemModal/AddListItemModal';
 import store from '../../../src/store/index'
 import { useTranslation } from 'react-i18next';
+import ListItem from '../../../components/common/ListItem/Listitem';
+import ListContainer from '../../../components/common/ListContainer/ListContainer';
 
 export default function ListView() {
   const { t } = useTranslation();
@@ -24,23 +26,7 @@ export default function ListView() {
           />
         ),
       }} />
-      {store.lists.length ?
-        <View style={styles.listContainer}>
-          {
-            store.lists.map((item, id) => (
-              <View key={id}>
-                <List.Item
-                  title={item.listName}
-                  description={item.listDetails || ' '}
-                  left={props => <List.Icon {...props} icon="format-list-bulleted" />}
-                  style = {styles.listItem}
-                />
-              </View>))
-          }
-        </View> :
-        <View style={styles.emptyTextStyles}>
-          <Text>{t('EmptyProductsList')}</Text>
-        </View>}
+      <ListContainer/>
       <AddListItemModel visible={visible}
         hideModal={hideModal}></AddListItemModel>
     </View>
@@ -54,25 +40,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  emptyTextStyles: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  listContainer: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    borderTopWidth: 1,
-    borderColor: '#6b4faa',
-    height: '100%',
-    width: '100%',
-  },
-  listItem: {
-    backgroundColor: '#f4edf9',
-    width: '100%',
-    borderBottomWidth: 1,
-    borderBottomColor: '#6b4faa',
-    display: 'flex',
-    alignItems: 'flex-start'
-  }
+
 });

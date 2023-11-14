@@ -9,36 +9,40 @@ import store from '../../../src/store/index';
 import { List } from '../../../src/models';
 import { observer } from 'mobx-react-lite';
 
-export interface IAddGoodsModal {
+export interface IChangeListModal {
   visible: boolean,
-  hideModal: any
+  hideModal: any,
+  item: List,
 }
 
-export interface IAddGoodsModalModel {
+export interface IChangeListModalModel {
   listName: string,
-  listDetails: string
+  listDetails: string,
+  id: string
 }
 
-const AddGoodsModal: FC<IAddGoodsModal> = ({
-  visible, hideModal,
+const ChangeListModal: FC<IChangeListModal> = ({
+  visible, hideModal, item
 }) => {
-  const addNewList = (value: IAddGoodsModalModel): void => {
-    const listIem = {
-      ...value, 
-      id: uuid.v4(), 
-      items: [],
-    }
-    store.setNewList(listIem as List);
+
+    
+    
+  const changeList = (value: IChangeListModalModel): void => {
+    store.changeList({
+      ...value,
+      id: item.id
+    })
     hideModal();
   }
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik<IAddGoodsModalModel>({
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik<IChangeListModalModel>({
     initialValues: {
-      listName: '',
-      listDetails: ''
+      listName: item.listName,
+      listDetails: item.listDetails,
+      id: item.id
     },
     validationSchema: listFormSchema,
-    onSubmit: (values: IAddGoodsModalModel) => {
-      addNewList(values);
+    onSubmit: (values: IChangeListModalModel) => {
+      changeList(values);
     },
 
   });
@@ -49,7 +53,7 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
           <TouchableWithoutFeedback>
             <View style={styles.modalInner}>
               <View style={styles.modalHeaderStyles}>
-                <Text>Add new list to list: </Text>
+                <Text>Change this list: </Text>
                 <IconButton
                   icon="close"
                   size={20}
@@ -90,7 +94,7 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
                 mode="contained"
                 onPress={handleSubmit}
               >
-                <Text>Add Item</Text>
+                <Text>Change</Text>
               </Button>
             </View>
           </TouchableWithoutFeedback>
@@ -100,7 +104,7 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
   );
 };
 
-export default observer(AddGoodsModal);
+export default observer(ChangeListModal);
 const styles = StyleSheet.create({
   modalStyle: {
     flex: 1,

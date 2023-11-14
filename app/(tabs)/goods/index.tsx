@@ -1,12 +1,11 @@
 import { StyleSheet, View } from 'react-native';
 import { Stack } from "expo-router";
-import store from '../../../src/store/index'
-import { Chip, IconButton, Text } from 'react-native-paper';
+import {  IconButton } from 'react-native-paper';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import AddGoodsModal from '../../../components/modals/AddGoodsModal/AddGoodsModal';
 import { useTranslation } from 'react-i18next';
-import { Item } from '../../../src/models';
+import GoodsContainer from '../../../components/common/GoodsContainer/GoodsContainer';
 
 const GoodsView = observer(() => {
   const { t } = useTranslation();
@@ -16,9 +15,6 @@ const GoodsView = observer(() => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
-  const removeItem = (item: Item): void => {
-    store.removeItem(item)
-  }
 
   return (
     <View style={styles.container}>
@@ -37,18 +33,7 @@ const GoodsView = observer(() => {
         visible={visible}
         hideModal={hideModal}
       />
-      {store.allItems.length ?
-        <View style={styles.chipsStyles}>
-          {
-            store.allItems.map((item) => (
-              <View key={item.id} style={styles.chipStyles}>
-                <Chip closeIcon="close" onClose={() => removeItem(item.id)}>{item.name}</Chip>
-              </View>))
-          }
-        </View> :
-        <View style={styles.emptyTextStyles}>
-          <Text>{t('EmptyGoodsList')}</Text>
-        </View>}
+      <GoodsContainer/>
     </View>
   );
 });
@@ -68,22 +53,6 @@ const styles = StyleSheet.create({
     width: '100%',
     margin: 10
   },
-  chipsStyles: {
-    flex: 1,
-    padding: 20,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    flexWrap: 'wrap',
-    width: '95%',
-  },
-  chipStyles: {
-    margin: 5
-  },
-  emptyTextStyles: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+ 
 });
 export default GoodsView;

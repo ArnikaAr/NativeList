@@ -7,7 +7,11 @@ const resources = {
       "List": "List",
       "Goods": "Goods",
       "EmptyProductsList": "The list of products are still empty",
-      "EmptyGoodsList": "The list of goods are still empty"
+      "EmptyGoodsList": "The list of goods are still empty",
+      "ChangeTheme": "Change Theme",
+      "ChangeLang": "Change Lang",
+      "Settings": "Settings",
+      "ListDetails": "ListDetails"
     }
   },
   ua: {
@@ -15,7 +19,11 @@ const resources = {
       "List": "Список",
       "Goods": "Товари",
       "EmptyProductsList": "Тут поки немає списків",
-      "EmptyGoodsList": "Тут поки немає товарів"
+      "EmptyGoodsList": "Тут поки немає товарів",
+      "ChangeTheme": "Змінити тему",
+      "ChangeLang": "Змінити мову",
+      "Settings": "Налаштування",
+      "ListDetails": "Детальніше"
     }
   }
 };

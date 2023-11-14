@@ -29,6 +29,17 @@ export default function TabsLayout() {
           },
         }}
       />
+       <Tabs.Screen
+        name="settings"
+        options={{
+          tabBarLabel: t("Settings"),
+          title: t("Settings"),
+          tabBarIcon: () => <MaterialCommunityIcons name="cog-outline" size={30} color={'#402e69'} />,
+          tabBarLabelStyle: {
+            fontSize: 12,
+          },
+        }}
+      />
     </Tabs>
   );
 }
