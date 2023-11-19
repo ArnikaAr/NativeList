@@ -3,10 +3,9 @@ import { List, IconButton } from 'react-native-paper';
 import { Stack } from "expo-router";
 import React, { useState } from 'react';
 import AddListItemModel from '../../../components/modals/AddListItemModal/AddListItemModal';
-import store from '../../../src/store/index'
 import { useTranslation } from 'react-i18next';
-import ListItem from '../../../components/common/ListItem/Listitem';
 import ListContainer from '../../../components/common/ListContainer/ListContainer';
+
 
 export default function ListView() {
   const { t } = useTranslation();
@@ -15,6 +14,7 @@ export default function ListView() {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
+
   return (
     <View style={styles.container}>
       <Stack.Screen options={{

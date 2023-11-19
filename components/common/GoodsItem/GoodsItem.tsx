@@ -22,8 +22,8 @@ const GoodsItem: FC<IGoodsItem> = ({
         store.removeItem(item)
     }
     return (
-        <View key={item.id} style={styles.chipStyles}>
-            <Chip closeIcon="close" onClose={() => showModal()}>{item.name}</Chip>
+        <View key={item.key} style={styles.chipStyles}>
+            <Chip closeIcon="close" mode='outlined' onClose={() => showModal()}>{item.value}</Chip>
             <DeleteModal visible={visible} hideModal={hideModal} modalHandler={() => removeItem(item)} />
         </View>
     );

@@ -20,13 +20,23 @@ function ListDetailsView() {
     const { id } = useLocalSearchParams<{ id: string }>();
     const listItem = store.lists.find((item: List) => item.id === id);
     const [open, setOpen] = useState(false);
-    const [values, setValue] = useState([]);
+    const [values, setValue] = useState<string[]>([]);
     const [items, setItems] = useState<IDropPickerItem[]>([]);
-   
+    useEffect(() => {
+        if (listItem && listItem.items) {
+            const items = listItem.items.map(item => item.key);
+            setValue(items);
+        }
+    }, []);
+
+    useEffect(()=> {
+        const listItems = store.allItems.filter(item => values.includes(item.key));
+        store.addItemsToList(listItems, listItem?.id);
+    }, [values]);
 
     useEffect(() => {
         let arr: IDropPickerItem[] = store.allItems.map((el) => {
-            const obj: IDropPickerItem = { value: el.id, label: el.name };
+            const obj: IDropPickerItem = { value: el.key, label: el.value };
             return obj;
         }
         )
@@ -38,13 +48,7 @@ function ListDetailsView() {
         <View style={styles.container}>
 
             <Stack.Screen options={{
-                headerShown: true, title: t("ListDetails"), headerRight: () => (
-                    <IconButton
-                        icon="plus"
-                        size={20}
-                    // onPress={() => showModal()}
-                    />
-                ),
+                headerShown: true, title: t("ListDetails")
             }} />
 
 

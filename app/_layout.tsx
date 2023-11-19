@@ -1,13 +1,28 @@
 import { Stack } from "expo-router";
-import { Provider as PaperProvider } from 'react-native-paper';
+import { MD3DarkTheme, MD3LightTheme, Provider as PaperProvider } from 'react-native-paper';
 import i18n from "../src/translations/index";
 import { I18nextProvider } from "react-i18next";
+import { DarkScheme } from "../src/theme/darkSheme";
+import { LightScheme } from "../src/theme/lightSheme";
+import store from "../src/store";
+import { observer } from "mobx-react-lite";
 
+const LightTheme = {
+    ...MD3LightTheme,
+    colors: LightScheme,
+};
 
-export default function RootLayout() {
+const DarkTheme = {
+    ...MD3DarkTheme,
+    colors: DarkScheme,
+};
+const RootLayout = () => {
+    const colorScheme = store.colorScheme;
+
+    const theme = colorScheme === 'dark' ? DarkTheme : LightTheme;
     return (
         <I18nextProvider i18n={i18n}>
-            <PaperProvider>
+            <PaperProvider theme={theme}>
                 <Stack>
                     <Stack.Screen
                         name="(tabs)"
@@ -20,3 +35,5 @@ export default function RootLayout() {
         </I18nextProvider>
     );
 }
+
+export default observer(RootLayout);

@@ -9,9 +9,11 @@ import { Item, List } from '../models';
 const defaultState: {
   lists: List[],
   allItems: Item[],
+  colorScheme: string,
 } = {
   lists: [],
   allItems: [],
+  colorScheme: 'dark'
 }
 
 const store = makeObservable({
@@ -27,7 +29,7 @@ const store = makeObservable({
     this.lists = [...this.lists, value];
   },
   removeItem(value: Item) {
-    this.allItems = this.allItems.filter(item => item.id !== value.id);
+    this.allItems = this.allItems.filter(item => item.key !== value.id);
   },
   removeListItem(value: List) {
     this.lists = this.lists.filter(item => item.id !== value.id);
@@ -35,19 +37,27 @@ const store = makeObservable({
   changeList(newValue: any) {
     this.lists = this.lists.map(item => item.id === newValue.id ? newValue: item);
   },
-  addItemsToList(value: Item[] | undefined, id: string | undefined){
- 
+  addItemsToList(itemsArr: Item[], id: string | undefined) {
+    const thisList = this.lists.find(item => item.id === id);
+    if (thisList) {
+      thisList.items = itemsArr;
+    }
+  },
+  changeColorScheme(newColorScheme: string){
+    this.colorScheme = newColorScheme;
   }
 },
   {
     lists: observable,
     allItems: observable,
+    colorScheme: observable,
     setNewItem: action,
     removeItem: action,
     setNewList: action,
     removeListItem: action,
     changeList: action,
     addItemsToList: action,
+    changeColorScheme: action
   },
   { autoBind: true }
 );

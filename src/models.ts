@@ -6,6 +6,6 @@ export type List =  {
 }
 
 export type Item = {
-    id: string, 
-    name: string
+    key: string, 
+    value: string
 }

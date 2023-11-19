@@ -16,7 +16,7 @@ const GoodsContainer: FC<IGoodsContainer> = ({
     <View style={styles.goodsContainer}>
       {store.allItems.length ?
         <View style={styles.chipsStyles}>
-          {store.allItems.map((item) => (<GoodsItem item={item} key={item.id}  />))}
+          {store.allItems.map((item) => (<GoodsItem item={item} key={item.key}  />))}
         </View> :
         <View style={styles.emptyTextStyles}>
           <Text>{t('EmptyGoodsList')}</Text>

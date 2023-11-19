@@ -19,8 +19,8 @@ const AddGoodsModal: FC<IAddGoodsModal> = ({
 }) => {
   const addNewItem = (value: string): void => {
     const newItem = {
-      name: value,
-      id: uuid.v4()
+      value: value,
+      key: uuid.v4()
     }
     store.setNewItem(newItem as Item);
     hideModal();

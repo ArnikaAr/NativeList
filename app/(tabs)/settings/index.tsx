@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { observer } from 'mobx-react-lite';
-import ThemeSwitcher from '../../../components/common/LangSwitch/LangSwitcher';
+import ThemeSwitcher from '../../../components/common/ColorSwitch/ColorSwitcher';
 
 const  SettingsView = () => {
   const { t, i18n  } = useTranslation();
