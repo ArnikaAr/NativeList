@@ -27,22 +27,21 @@ function ListDetailsView() {
             const items = listItem.items.map(item => item.key);
             setValue(items);
         }
-    }, []);
+    }, [store.allItems]);
 
-    useEffect(()=> {
+    useEffect(() => {
         const listItems = store.allItems.filter(item => values.includes(item.key));
         store.addItemsToList(listItems, listItem?.id);
-    }, [values]);
+    }, [values, store.allItems]);
 
     useEffect(() => {
         let arr: IDropPickerItem[] = store.allItems.map((el) => {
             const obj: IDropPickerItem = { value: el.key, label: el.value };
             return obj;
-        }
-        )
+        });
         setItems(arr);
-    },[id,store.allItems]);
-   
+    }, [id, store.allItems]);
+
     return (
 
         <View style={styles.container}>
@@ -50,8 +49,6 @@ function ListDetailsView() {
             <Stack.Screen options={{
                 headerShown: true, title: t("ListDetails")
             }} />
-
-
             <ItemBlock item={listItem} />
             <DropDownPicker
                 itemKey='value'
@@ -61,7 +58,6 @@ function ListDetailsView() {
                 setOpen={setOpen}
                 setValue={setValue}
                 setItems={setItems}
-
                 containerStyle={styles.dropdownContainer}
                 style={styles.dropdown}
                 multiple={true}

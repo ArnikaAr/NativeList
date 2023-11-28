@@ -29,7 +29,10 @@ const store = makeObservable({
     this.lists = [...this.lists, value];
   },
   removeItem(value: Item) {
-    this.allItems = this.allItems.filter(item => item.key !== value.id);
+    this.allItems = this.allItems.filter(item => item.key !== value.key);
+  },
+  changeItem(newItemValue: string, key: string){
+    this.allItems.map((item)=> item.key === key ? item.value = newItemValue : item);
   },
   removeListItem(value: List) {
     this.lists = this.lists.filter(item => item.id !== value.id);
@@ -57,7 +60,8 @@ const store = makeObservable({
     removeListItem: action,
     changeList: action,
     addItemsToList: action,
-    changeColorScheme: action
+    changeColorScheme: action,
+    changeItem: action,
   },
   { autoBind: true }
 );
@@ -67,7 +71,7 @@ makePersistable(
   {
     storage: AsyncStorage,
     name: 'ListStore',
-    properties: ['lists', 'allItems', 'lang']
+    properties: ['lists', 'allItems', 'colorScheme']
   }
 )
 

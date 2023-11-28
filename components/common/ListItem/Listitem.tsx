@@ -1,6 +1,6 @@
 import React, { FC, useRef, useState } from 'react';
 import { Pressable, StyleSheet, View, Animated, TouchableOpacity } from 'react-native';
-import { List, IconButton } from 'react-native-paper';
+import { List, IconButton, useTheme } from 'react-native-paper';
 import DeleteModal from '../../modals/DeleteModal/DeleteModal';
 import store from '../../../src/store';
 import { observer } from 'mobx-react-lite';
@@ -19,8 +19,9 @@ const ListItem: FC<IListItem> = ({
     id, item
 }) => {
     const swipeableRef = useRef(null);
-
+    const { colors } = useTheme();
     const [visible, setVisible] = useState(false);
+
     const showModal = () => setVisible(true);
     const hideModal = () => {
         setVisible(false);
@@ -89,7 +90,7 @@ const ListItem: FC<IListItem> = ({
                         title={item.listName}
                         description={item.listDetails || ' '}
                         left={props => <List.Icon {...props} icon="format-list-bulleted" />}
-                        style={styles.listItem}
+                        style={{...styles.listItem, backgroundColor: colors.primary }}
                     />
                 </Link>
             </Swipeable>

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { observer } from 'mobx-react-lite';
 import ThemeSwitcher from '../../../components/common/ColorSwitch/ColorSwitcher';
+import store from '../../../src/store';
 
 const  SettingsView = () => {
   const { t, i18n  } = useTranslation();
@@ -25,7 +26,7 @@ const  SettingsView = () => {
         headerShown: true, title: t("Settings")
       }} />
       <View style={styles.switcherBlock}>
-        <Text>{t("ChangeTheme")}</Text>
+        <Text>{store.colorScheme === 'dark' ? t("DarkTheme") : t("LightTheme") }</Text>
         <ThemeSwitcher />
       </View>
       <View style={styles.switcherBlock}>

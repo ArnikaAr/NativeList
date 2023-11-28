@@ -2,8 +2,8 @@ import { Stack } from "expo-router";
 import { MD3DarkTheme, MD3LightTheme, Provider as PaperProvider } from 'react-native-paper';
 import i18n from "../src/translations/index";
 import { I18nextProvider } from "react-i18next";
-import { DarkScheme } from "../src/theme/darkSheme";
-import { LightScheme } from "../src/theme/lightSheme";
+import { DarkScheme } from "../src/theme/darkTheme";
+import { LightScheme } from "../src/theme/lightTheme";
 import store from "../src/store";
 import { observer } from "mobx-react-lite";
 

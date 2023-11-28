@@ -10,6 +10,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="list"
         options={{
+          href: 'list',
           tabBarLabel: t("List"),
           title: t("List"),
           tabBarIcon: () => <MaterialCommunityIcons name="format-list-bulleted" size={30} color={'#402e69'} />,
@@ -21,6 +22,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="goods"
         options={{
+          href: 'goods',
           tabBarLabel: t("Goods"),
           title: t("Goods"),
           tabBarIcon: () => <MaterialCommunityIcons name="rhombus-split" size={30} color={'#402e69'} />,
@@ -32,6 +34,7 @@ export default function TabsLayout() {
        <Tabs.Screen
         name="settings"
         options={{
+          href: 'settings',
           tabBarLabel: t("Settings"),
           title: t("Settings"),
           tabBarIcon: () => <MaterialCommunityIcons name="cog-outline" size={30} color={'#402e69'} />,

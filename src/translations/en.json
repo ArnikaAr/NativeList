@@ -6,5 +6,7 @@
         "ChangeTheme": "Change Theme",
         "ChangeLang": "Change Lang",
         "Settings": "Settings",
-        "ListDetails": "ListDetails"
+        "ListDetails": "ListDetails",
+        "DarkTheme": "DarkTheme",
+        "LightTheme": "LightTheme"
 }
