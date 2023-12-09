@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import DeleteModal from '../../modals/DeleteModal/DeleteModal';
-import { Chip, IconButton } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import store from '../../../src/store/index'
 import { Item } from '../../../src/models';
 import { observer } from 'mobx-react-lite';

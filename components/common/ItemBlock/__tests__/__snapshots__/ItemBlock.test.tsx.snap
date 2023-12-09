@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ItemBlock /> ItemBlock match snapshot 1`] = `
+<View
+  style={
+    {
+      "display": "flex",
+      "justifyContent": "space-around",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderBottomColor": "#d0d0d0",
+        "borderBottomWidth": 2,
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "padding": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <Text>
+      Name
+    </Text>
+    <Text>
+      List Name
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderBottomColor": "#d0d0d0",
+        "borderBottomWidth": 2,
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "padding": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <Text>
+      List details
+    </Text>
+    <Text>
+       
+      List Details
+    </Text>
+  </View>
+</View>
+`;
