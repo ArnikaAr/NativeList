@@ -49,6 +49,7 @@ const ChangeGoodsModal: FC<IChangeGoodsModal> = ({
               <TextInput
                 mode="outlined"
                 label="Change item"
+                aria-label="change-input"
                 style={styles.fullWidth}
                 value={values.item}
                 onChangeText={handleChange('item')}
@@ -64,7 +65,7 @@ const ChangeGoodsModal: FC<IChangeGoodsModal> = ({
                 style={styles.fullWidth}
                 mode="contained"
                 onPress={() => changeGoods(values.item)}
-
+                aria-label="change-button"
               >
                 <Text>Change Item</Text>
               </Button>

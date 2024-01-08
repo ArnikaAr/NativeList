@@ -73,6 +73,7 @@ exports[`<ItemBlock /> ItemBlock match snapshot 1`] = `
       >
         <View
           accessibilityComponentType="button"
+          accessibilityLabel="edit-button"
           accessibilityRole="button"
           accessibilityState={
             {
@@ -132,25 +133,7 @@ exports[`<ItemBlock /> ItemBlock match snapshot 1`] = `
           }
           testID="icon-button"
         >
-          <Text
-            accessibilityElementsHidden={true}
-            importantForAccessibility="no-hide-descendants"
-            pointerEvents="none"
-            selectable={false}
-            style={
-              [
-                {
-                  "backgroundColor": "transparent",
-                },
-                {
-                  "color": "#6b4faa",
-                  "fontSize": 15,
-                },
-              ]
-            }
-          >
-            □
-          </Text>
+          <Text />
         </View>
       </View>
     </View>
@@ -199,6 +182,7 @@ exports[`<ItemBlock /> ItemBlock match snapshot 1`] = `
       >
         <View
           accessibilityComponentType="button"
+          accessibilityLabel="close-button"
           accessibilityRole="button"
           accessibilityState={
             {
@@ -258,25 +242,7 @@ exports[`<ItemBlock /> ItemBlock match snapshot 1`] = `
           }
           testID="icon-button"
         >
-          <Text
-            accessibilityElementsHidden={true}
-            importantForAccessibility="no-hide-descendants"
-            pointerEvents="none"
-            selectable={false}
-            style={
-              [
-                {
-                  "backgroundColor": "transparent",
-                },
-                {
-                  "color": "#6b4faa",
-                  "fontSize": 15,
-                },
-              ]
-            }
-          >
-            □
-          </Text>
+          <Text />
         </View>
       </View>
     </View>

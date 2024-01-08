@@ -34,6 +34,7 @@ const GoodsItem: FC<IGoodsItem> = ({
                 <IconButton
                     icon="circle-edit-outline"
                     iconColor='#6b4faa'
+                    aria-label="edit-button"
                     size={15}
                     onPress={() => showChangeGoodsModal()}
                     style={styles.icon}
@@ -41,6 +42,7 @@ const GoodsItem: FC<IGoodsItem> = ({
                 <IconButton
                     icon="close"
                     iconColor='#6b4faa'
+                    aria-label="close-button"
                     size={15}
                     onPress={() => showModal()}
                     style={styles.icon}
